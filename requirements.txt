@@ -9,5 +9,5 @@ tensorflow
 keras
 torch
 imblearn
-
+statsmodels
 -e .
