@@ -10,4 +10,8 @@ keras
 torch
 imblearn
 statsmodels
--e .
+catboost
+xgboost
+
+
+# -e .     //Uncomment this file if you have local packages 
