@@ -12,6 +12,6 @@ imblearn
 statsmodels
 catboost
 xgboost
-
+dill
 
 # -e .     //Uncomment this file if you have local packages 
