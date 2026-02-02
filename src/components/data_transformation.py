@@ -52,8 +52,45 @@ class DataTransformation:
                 ("Categorical Pipeline", categorical_pipeline, categorical_features)
             ]
         )
-
             return preprocessor
         
         except  Exception as e:
             raise CustomException(e,sys)
+        
+    
+    def initiate_data_transformation(self, train_path, test_path):
+        try:
+            train_df= pd.read_csv(train_path)
+            test_df= pd.read_csv(test_path)
+            logging.info("Read train & test data completed")
+
+            logging.info("Obtaining processing object")
+            preprocessing_obj= self.get_data_transformation_obj()
+
+            target_column_name="math_score"
+            numerical_features=['reading score', 'writing score']
+
+            #  Train dataset
+            input_feature_train_df= train_df.drop(column=['math score'], axis=1)
+            target_feature_train_df= train_df['math score']
+
+            # Test dataset
+            input_feature_test_df= test_df.drop(columns=['math score'], axis=1)
+            target_feature_test_df= test_df['math score']
+
+            logging.info("Applying preprocessing object on training dataframe and testing dataframe")
+
+            input_feature_train_df= preprocessing_obj.fit_transform(input_feature_train_df)
+            input_feature_test_df= preprocessing_obj.transform(input_feature_test_df)
+
+            train_arr= np.c_[input_feature_train_df, np.array(target_feature_train_df)]
+            test__arr= np.c_[input_feature_test_df, np.array(target_feature_test_df)]
+
+            return(
+                train_arr,
+                test__arr,
+                self.data_transformation_config.preprocessor_obj_file_path,
+            )
+
+        except Exception as e:
+            raise CustomException(e, sys)
