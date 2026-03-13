@@ -39,5 +39,5 @@ class DataIngestion:
 
 if __name__== "__main___":
     obj=DataIngestion()
-    obj.initiate_data_ingestion()
+    train_arr,test_arr,_=obj.initiate_data_ingestion()
     
